@@ -1,15 +1,14 @@
 module.exports = (sequelize, Model, DataTypes) => {
-  //const bcrypt = require("bcryptjs");
+  // const bcrypt = require("bcryptjs");
 
-  //   class User extends Model {
-  //     /* static async hashPassword(password) {
-  //         return await bcrypt.hash(password, 10);
-  //       } */
-
-  //     async validPassword(plaintextPassword) {
-  //       return await bcrypt.compare(plaintextPassword, this.password);
-  //     }
-  //   }
+  class User extends Model {
+    // /* static async hashPassword(password) {
+    //       return await bcrypt.hash(password, 10);
+    //     } */
+    // async validPassword(plaintextPassword) {
+    //   return await bcrypt.compare(plaintextPassword, this.password);
+    // }
+  }
 
   User.init(
     {
@@ -32,7 +31,7 @@ module.exports = (sequelize, Model, DataTypes) => {
         allowNull: false,
       },
       phone: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       password: {
