@@ -1,0 +1,18 @@
+[
+	{
+		"quantity": 3,
+		"unitPrice": 19.99,
+		"createdAt": "2021-08-20 11:01:25",
+		"updatedAt": "2021-08-20 11:01:25",
+		"productId": 1,
+		"orderId": 1
+	},
+	{
+		"quantity": 2,
+		"unitPrice": 10.99,
+		"createdAt": "2021-08-20 11:01:25",
+		"updatedAt": "2021-08-20 11:01:25",
+		"productId": 2,
+		"orderId": 1
+	}
+]
