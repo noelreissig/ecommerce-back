@@ -9,7 +9,7 @@ async function index(req, res) {
 	res.json(products);
 }
 async function show(req, res) {
-	const products = await Product.findByPk(req.params.id);
+	const products = await Product.findOne({ where: { slug: req.params.name } });
 	if (products) {
 		statuscode = 200;
 		res.json(products);

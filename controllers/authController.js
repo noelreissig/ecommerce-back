@@ -14,39 +14,29 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-async function login(req, res) {
+async function tokens(req, res) {
 	try {
 		// Get user input
-		const { username, password } = req.body;
-
+		const { email, password } = req.body;
 		// Validate user input
-		if (!(username && password)) {
+		if (!(email && password)) {
 			res.status(400).send("All input is required");
 		}
-		// Validate if user exist in our database
-		const user = await User.findOne({
-			$or: [{ email: username }, { username: username }],
-		});
-		if (await user.validPassword(password)) {
-			// Create token
-			const token = jwt.sign(
-				{ sub: user._id, username: username },
-				process.env.TOKEN_KEY
-			);
-			const newUser = await User.findById(user._id).select("-password");
-			newUser.token = token;
-
-			res.status(200).json(newUser);
-		}
-		res.status(400).send("Invalid Credentials");
+		console.log(email, password);
+		// 	// Validate if user exist in our database
+		const user = await User.findOne({ where: { email: email } });
+		// 	if (await user.validPassword(password)) {
+		// 		// Create token
+		const token = jwt.sign({ id: user.id, email: user.email }, process.env.TOKEN_KEY);
+		const newUser = await User.findByPk(user.id);
+		newUser.token = token;
+		res.status(200).json(newUser);
+		// }
+		// res.status(400).send("Invalid Credentials");
 	} catch (err) {
 		console.log(err);
 	}
 }
 module.exports = {
-	login,
-	// logout: (req, res) => {
-	//   req.logout();
-	//   res.json(req.user);
-	// },
+	tokens,
 };

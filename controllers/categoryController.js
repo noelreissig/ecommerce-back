@@ -9,13 +9,13 @@ async function index(req, res) {
 	res.json(categories);
 }
 async function show(req, res) {
-	const categories = await Category.findByPk(req.params.id);
+	const categories = await Category.findOne({ where: { name: req.params.name } });
 	if (categories) {
 		statuscode = 200;
 		res.json(categories);
 	} else {
 		statuscode = 404;
-		res.send("Usuario no encontrado");
+		res.send("Category not found");
 	}
 }
 async function store(req, res) {

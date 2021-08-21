@@ -20,6 +20,6 @@ app.use(cors());
 // passport(app);
 
 dbInitialSetup();
-// routes(app);
+routes(app);
 
 app.listen(port, console.log(`Servidor en puerto ${port}`));
