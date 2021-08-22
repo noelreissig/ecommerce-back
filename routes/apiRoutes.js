@@ -4,8 +4,8 @@ const apiRouter = express.Router();
 // const passport = require("passport");
 const checkJwt = require("express-jwt");
 const checkToken = checkJwt({
-	secret: process.env.TOKEN_KEY,
-	algorithms: ["HS256"],
+  secret: process.env.TOKEN_KEY,
+  algorithms: ["HS256"],
 });
 
 // const apiController = require("../controllers/apiController");

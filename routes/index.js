@@ -3,8 +3,6 @@
 const apiRoutes = require("./apiRoutes");
 
 module.exports = (app) => {
-	// app.use(publicRoutes);
-
-	// app.use("/admin", adminRoutes);
-	app.use(apiRoutes);
+  // app.use("/admin", adminRoutes);
+  app.use(apiRoutes);
 };
