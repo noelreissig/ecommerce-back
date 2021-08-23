@@ -6,11 +6,9 @@ const adminController = require("../controllers/adminController");
 
 const checkJwt = require("express-jwt");
 const checkToken = checkJwt({
-	secret: process.env.TOKEN_KEY,
-	algorithms: ["HS256"],
+  secret: process.env.TOKEN_KEY,
+  algorithms: ["HS256"],
 });
-
-adminRouter.post("/api/tokens", authController.tokens);
 
 // CRUD Admin User
 adminRouter.get("/api/admin", checkToken, adminController.index);

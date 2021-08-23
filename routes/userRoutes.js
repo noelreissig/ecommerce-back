@@ -6,11 +6,9 @@ const userController = require("../controllers/userController");
 
 const checkJwt = require("express-jwt");
 const checkToken = checkJwt({
-	secret: process.env.TOKEN_KEY,
-	algorithms: ["HS256"],
+  secret: process.env.TOKEN_KEY,
+  algorithms: ["HS256"],
 });
-
-userRouter.post("/api/tokens", authController.tokens);
 
 // CRUD Client User
 userRouter.get("/api/users", userController.index);
