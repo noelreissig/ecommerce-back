@@ -10,6 +10,7 @@ module.exports = async () => {
 	await require("./seeders/seederCategory")();
 	await require("./seeders/seederProduct")();
 	await require("./seeders/seederUser")();
+	await require("./seeders/seederAdmin")();
 	await require("./seeders/seederOrder")();
 	await require("./seeders/seederOrder_Product")();
 
