@@ -9,9 +9,11 @@ const checkToken = checkJwt({
 
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
+// const adminController = require("../controllers/adminController");
 const productController = require("../controllers/productController");
 const orderController = require("../controllers/orderController");
 const categoryController = require("../controllers/categoryController");
+// const adminRoutes = require("./adminRoutes");
 
 apiRouter.post("/api/tokens", authController.tokens);
 
@@ -23,17 +25,20 @@ apiRouter.patch("/api/product/:id", productController.update);
 apiRouter.delete("/api/product/:id", productController.destroy);
 
 //Gabriel
-apiRouter.get("/api/users", userController.index);
-apiRouter.get("/api/users/:id", userController.show);
-apiRouter.post("/api/users", userController.store);
-apiRouter.patch("/api/users", checkToken, userController.update);
-apiRouter.delete("/api/users/:id", checkToken, userController.destroy);
+// CRUD Client User
+// apiRouter.get("/api/users", userController.index);
+// apiRouter.get("/api/users/:id", userController.show);
+// apiRouter.post("/api/users", userController.store);
+// apiRouter.patch("/api/users", checkToken, userController.update);
+// apiRouter.delete("/api/users/:id", checkToken, userController.destroy);
 
-apiRouter.get("/api/admin", userController.index);
-apiRouter.get("/api/admin/:id", userController.show);
-apiRouter.post("/api/admin", checkToken, userController.store);
-apiRouter.patch("/api/admin", checkToken, userController.update);
-apiRouter.delete("/api/admin/:id", checkToken, userController.destroy);
+// CRUD Admin User
+// apiRouter.use(adminRoutes);
+// apiRouter.get("/api/admin", checkToken, adminController.index);
+// apiRouter.get("/api/admin/:id", checkToken, adminController.show);
+// apiRouter.post("/api/admin", checkToken, adminController.store);
+// apiRouter.patch("/api/admin", checkToken, adminController.update);
+// apiRouter.delete("/api/admin/:id", checkToken, adminController.destroy);
 
 //todos
 apiRouter.get("/api/order", orderController.index);

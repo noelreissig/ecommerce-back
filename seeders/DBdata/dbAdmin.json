@@ -1,12 +1,9 @@
 [
-  {
-    "id": 1,
-    "firstname": "admin",
-    "lastname": "admin",
-    "email": "admin@admin.com",
-    "password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2",
-    "token": null,
-    "createdAt": "2021-08-23 14:36:37",
-    "updatedAt": "2021-08-23 14:36:37"
-  }
+	{
+		"firstname": "admin",
+		"lastname": "admin",
+		"email": "admin@admin.com",
+		"password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2",
+		"token": null
+	}
 ]
