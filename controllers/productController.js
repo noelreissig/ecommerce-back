@@ -4,60 +4,86 @@ const { Op } = require("sequelize");
 // const checkJwt = require("express-jwt");
 // let apiKey = "";
 
+//show products
 async function index(req, res) {
-	const products = await Product.findAll({});
-	res.json(products);
+  const products = await Product.findAll({});
+  res.json(products);
 }
+
+//consultar como funciona la busqueda por slug
 async function show(req, res) {
-	const products = await Product.findOne({ where: { slug: req.params.name } });
-	if (products) {
-		statuscode = 200;
-		res.json(products);
-	} else {
-		statuscode = 404;
-		res.send("Product not found");
-	}
+  const products = await Product.findOne({ where: { slug: req.params.name } });
+  if (products) {
+    statuscode = 200;
+    res.json(products);
+  } else {
+    statuscode = 404;
+    res.send("Product not found");
+  }
 }
+
 async function store(req, res) {
-	// const { firstname, lastname, email, password, roleId } = req.body;
-	// const [product, created] = await Product.findOrCreate({
-	// 	where: {
-	// 		email: email,
-	// 	},
-	// 	defaults: {
-	// 		name: firstname,
-	// 		lastname: lastname,
-	// 		email: email,
-	// 		password: password,
-	// 		roleId: roleId,
-	// 	},
-	// });
+  const {
+    name,
+    description,
+    details,
+    characteristics,
+    warranty,
+    delivery,
+    picture_url,
+    picture_2_url,
+    price,
+    stock,
+    stared,
+    slug,
+    categoryId,
+  } = req.body;
+  const [product, created] = await Product.findOrCreate({
+    where: {
+      name: name,
+    },
+    defaults: req.body,
+  });
+  if (created) {
+    res.statuscode = 200;
+    res.send("Product created");
+    //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
+    res.redirect("/productos");
+  } else {
+    res.statuscode = 404;
+    res.send("Error - Product not created. Please check data");
+  }
 }
+
 async function update(req, res) {
-	// try {
-	// 	const product = await Product.update(req.body, { where: { id: req.params.id } });
-	// 	res.statuscode = 200;
-	// 	res.send("Product updated");
-	// } catch (err) {
-	// 	res.statuscode = 404;
-	// 	res.send("Error 404 - El titulo y/o el contenido no pueden quedar vacios");
-	// }
+  try {
+    await Product.update(req.body, { where: { id: req.params.id } });
+    res.statuscode = 200;
+    res.send("Product updated");
+    //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
+    res.redirect("/productos");
+  } catch (err) {
+    res.statuscode = 404;
+    res.send("Error 404 - Please check data");
+  }
 }
+
+//de donde obtenemos el params.id para borrar, desde el front?.
 async function destroy(req, res) {
-	// try {
-	// 	const product = await Product.destroy({ where: { id: req.params.id } });
-	// 	res.statuscode = 200;
-	// 	res.send("Product deleted");
-	// } catch {
-	// 	res.statuscode = 404;
-	// 	res.send("Error 404 - No se pudo completar");
-	// }
+  try {
+    const product = await Product.destroy({ where: { id: req.params.id } });
+    res.statuscode = 200;
+    res.send("Product was deleted");
+  } catch {
+    res.statuscode = 404;
+    res.send("Error 404 - No se pudo completar");
+  }
 }
 
 module.exports = {
-	index,
-	show,
-	store,
-	update,
-	destroy,
+  index,
+  show,
+  store,
+  update,
+  destroy,
 };

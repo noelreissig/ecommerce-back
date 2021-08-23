@@ -1,7 +1,7 @@
 [
 	{
 		"id": 1,
-		"name": "holaMesa Redonda Shanelle De Terrazo",
+		"name": "Mesa Redonda Shanelle De Terrazo",
 		"description": "\"Mesa redonda con sobre terrazo Ø 120 cm con fondo blanco y madera maciza de acacia.\r\nEstructura hecha con madera maciza de acacia con un acabado blanqueado.\r\nSe trata de una pieza con un diseño adaptable para interiores y preparada para exteriores.\r\nEsta mesa pertenece a la colección Shanelle, con diferentes acabados disponibles para sobre y estructura.\"",
 		"details": "holaDeja que el terrazo sea el protagonista de tu casa. Shanelle llega con una nueva versión, con el sobre que tanto nos gusta acompañado de madera maciza de acacia para un acabado perfecto. Marca tendencia con materiales naturales y auténticos como tú.",
 		"characteristics": "Medidas: Al77 x An120 x Pr120 (cm) Tipo: Fija Material: Madera maciza, Terrazo Ambiente: Comedor Estilo: Colonial, Rústico",
@@ -11,7 +11,7 @@
 		"price": 1165.0,
 		"stock": 10,
 		"stared": 0,
-		"slug": "holamesa-redonda-shanelle-de-terrazo",
+		"slug": "mesa-redonda-shanelle-de-terrazo",
 		"createdAt": "2021-08-17 05:09:00",
 		"updatedAt": "2021-08-17 05:09:00",
 		"categoryId": 1

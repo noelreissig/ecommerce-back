@@ -18,11 +18,11 @@ const categoryController = require("../controllers/categoryController");
 apiRouter.post("/api/tokens", authController.tokens);
 
 //Maria NOel
-apiRouter.get("/api/product", productController.index);
-apiRouter.get("/api/product/:name", productController.show);
-apiRouter.post("/api/product", productController.store);
+apiRouter.get("/api/product", productController.index); //anda
+apiRouter.get("/api/product/:name", productController.show); //anda
+apiRouter.post("/api/product", productController.store); //anda
 apiRouter.patch("/api/product/:id", productController.update);
-apiRouter.delete("/api/product/:id", productController.destroy);
+apiRouter.delete("/api/product/:id", productController.destroy); //anda
 
 //Gabriel
 // CRUD Client User
