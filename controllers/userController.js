@@ -19,20 +19,21 @@ async function show(req, res) {
 	}
 }
 async function store(req, res) {
-	// const { firstname, lastname, email, password, roleId } = req.body;
-	// const [user, created] = await User.findOrCreate({
-	// 	where: {
-	// 		email: email,
-	// 	},
-	// 	defaults: {
-	// 		firstname: firstname,
-	// 		lastname: lastname,
-	// 		email: email,
-	// 		password: password,
-	// 		roleId: roleId,
-	// 	},
-	// });
+	const { firstname, lastname, address, phone, email, password } = req.body;
+	const [user, created] = await User.findOrCreate({
+		where: {
+			email: email,
+		},
+		defaults: {
+			firstname: firstname,
+			lastname: lastname,
+			address: address,
+			phone: phone,
+			password: password,
+		},
+	});
 }
+
 async function update(req, res) {
 	// try {
 	// 	const user = await User.update(req.body, { where: { id: req.params.id } });

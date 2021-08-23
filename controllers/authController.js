@@ -11,28 +11,35 @@
 // };
 // Ruta login POST
 
-const User = require("../models/User");
+const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 
 async function tokens(req, res) {
 	try {
-		// Get user input
 		const { email, password } = req.body;
-		// Validate user input
 		if (!(email && password)) {
 			res.status(400).send("All input is required");
 		}
-		console.log(email, password);
-		// 	// Validate if user exist in our database
-		const user = await User.findOne({ where: { email: email } });
-		// 	if (await user.validPassword(password)) {
-		// 		// Create token
-		const token = jwt.sign({ id: user.id, email: user.email }, process.env.TOKEN_KEY);
-		const newUser = await User.findByPk(user.id);
-		newUser.token = token;
-		res.status(200).json(newUser);
-		// }
-		// res.status(400).send("Invalid Credentials");
+		let user = await User.findOne({ where: { email: email } });
+		if (await user.validPassword(password)) {
+			const token = jwt.sign(
+				{ id: user.id, email: user.email },
+				process.env.TOKEN_KEY
+			);
+			await User.update(
+				{
+					token: token,
+				},
+				{ where: { email: email } }
+			);
+			user.save();
+			const newUser = await User.findOne({
+				where: { email: email },
+				attributes: { exclude: ["password"] },
+			});
+			res.status(200).json(newUser);
+		}
+		res.status(400).send("Invalid Credentials");
 	} catch (err) {
 		console.log(err);
 	}

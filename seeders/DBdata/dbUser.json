@@ -1,57 +1,42 @@
 [
-  {
-    "id": 1,
-    "firstname": "comprador1",
-    "lastname": "comprador",
-    "email": "comprador1@comp.com",
-    "address": "comp 123",
-    "phone": 1234,
-    "password": "password",
-    "createdAt": "2021-08-20 10:35:48",
-    "updatedAt": "2021-08-20 10:35:48"
-  },
-  {
-    "id": 7,
-    "firstname": "comprador2",
-    "lastname": "comprador",
-    "email": "comprador2@comp.com",
-    "address": "comp 123",
-    "phone": 1234,
-    "password": "password",
-    "createdAt": "2021-08-20 10:35:48",
-    "updatedAt": "2021-08-20 10:35:48"
-  },
-  {
-    "id": 8,
-    "firstname": "comprador3",
-    "lastname": "comprador",
-    "email": "comprador3@comp.com",
-    "address": "comp 123",
-    "phone": 1234,
-    "password": "password",
-    "createdAt": "2021-08-20 10:35:48",
-    "updatedAt": "2021-08-20 10:35:48"
-  },
-  {
-    "id": 9,
-    "firstname": "comprador4",
-    "lastname": "comprador",
-    "email": "comprador4@comp.com",
-    "address": "comp 123",
-    "phone": 1234,
-    "password": "password",
-    "createdAt": "2021-08-20 10:35:48",
-    "updatedAt": "2021-08-20 10:35:48"
-  },
-  {
-    "id": 10,
-    "firstname": "comprador5",
-    "lastname": "comprador",
-    "email": "comprador5@comp.com",
-    "address": "comp 123",
-    "phone": 1234,
-    "password": "password",
-    "createdAt": "2021-08-20 10:35:48",
-    "updatedAt": "2021-08-20 10:35:48"
-  }
+	{
+		"firstname": "comprador1",
+		"lastname": "comprador",
+		"email": "comprador1@comp.com",
+		"address": "comp 123",
+		"phone": 1234,
+		"password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2"
+	},
+	{
+		"firstname": "comprador2",
+		"lastname": "comprador",
+		"email": "comprador2@comp.com",
+		"address": "comp 123",
+		"phone": 1234,
+		"password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2"
+	},
+	{
+		"firstname": "comprador3",
+		"lastname": "comprador",
+		"email": "comprador3@comp.com",
+		"address": "comp 123",
+		"phone": 1234,
+		"password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2"
+	},
+	{
+		"firstname": "comprador4",
+		"lastname": "comprador",
+		"email": "comprador4@comp.com",
+		"address": "comp 123",
+		"phone": 1234,
+		"password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2"
+	},
+	{
+		"firstname": "comprador5",
+		"lastname": "comprador",
+		"email": "comprador5@comp.com",
+		"address": "comp 123",
+		"phone": 1234,
+		"password": "$2a$10$HG4x9a3HErfl0H450ajx9eEym8Hk5rzwIN513LUO.Jf9yIIu4.IU2"
+	}
 ]

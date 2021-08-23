@@ -37,7 +37,7 @@ apiRouter.delete("/api/product/:id", productController.destroy);
 
 apiRouter.get("/api/users", userController.index);
 apiRouter.get("/api/users/:id", userController.show);
-apiRouter.post("/api/users", checkToken, userController.store);
+apiRouter.post("/api/users", userController.store);
 apiRouter.patch("/api/users/:id", checkToken, userController.update);
 apiRouter.delete("/api/users/:id", checkToken, userController.destroy);
 
