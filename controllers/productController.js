@@ -10,6 +10,13 @@ async function index(req, res) {
   res.json(products);
 }
 
+async function showByCategory(req, res) {
+  const products = await Product.findAll({
+    where: { categoryId: req.params.categoryId },
+  });
+  res.json(products);
+}
+
 //consultar como funciona la busqueda por slug
 async function show(req, res) {
   const products = await Product.findOne({ where: { slug: req.params.slug } });
@@ -86,4 +93,5 @@ module.exports = {
   store,
   update,
   destroy,
+  showByCategory,
 };
