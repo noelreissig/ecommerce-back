@@ -40,7 +40,11 @@ async function store(req, res) {
 }
 async function update(req, res) {
   try {
-    await Category.update(req.body, { where: { id: req.params.id } });
+    const response = await Category.update(req.body, {
+      where: { id: req.params.id },
+    });
+    console.log("Estoy en back", req.body);
+
     res.statuscode = 200;
     res.send("Contenido actualizado");
   } catch (err) {

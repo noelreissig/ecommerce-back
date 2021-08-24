@@ -9,11 +9,23 @@ const { includes } = require("lodash");
 async function index(req, res) {
   const products = await Product.findAll({ include: Category });
   res.json(products);
+  const products = await Product.findAll({});
+  res.json(products);
+}
+
+async function showByCategory(req, res) {
+  const category = await Category.findOne({
+    where: { name: req.params.category },
+  });
+  const products = await Product.findAll({
+    where: { categoryId: category.id },
+  });
+  res.json(products);
 }
 
 //consultar como funciona la busqueda por slug
 async function show(req, res) {
-  const products = await Product.findOne({ where: { slug: req.params.name } });
+  const products = await Product.findOne({ where: { slug: req.params.slug } });
   if (products) {
     statuscode = 200;
     res.json(products);
@@ -87,4 +99,5 @@ module.exports = {
   store,
   update,
   destroy,
+  showByCategory,
 };

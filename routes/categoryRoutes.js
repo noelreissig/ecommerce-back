@@ -12,11 +12,7 @@ const checkToken = checkJwt({
 categoryRouter.get("/api/category", categoryController.index);
 categoryRouter.get("/api/category/:name", categoryController.show);
 categoryRouter.post("/api/category", checkToken, categoryController.store);
-categoryRouter.patch(
-  "/api/category/:id",
-  checkToken,
-  categoryController.update
-);
+categoryRouter.patch("/api/category/:id", categoryController.update);
 categoryRouter.delete(
   "/api/category/:id",
   checkToken,
