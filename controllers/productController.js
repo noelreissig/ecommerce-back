@@ -12,7 +12,7 @@ async function index(req, res) {
 
 //consultar como funciona la busqueda por slug
 async function show(req, res) {
-  const products = await Product.findOne({ where: { slug: req.params.name } });
+  const products = await Product.findOne({ where: { slug: req.params.slug } });
   if (products) {
     statuscode = 200;
     res.json(products);
