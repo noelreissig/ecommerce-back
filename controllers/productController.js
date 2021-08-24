@@ -9,8 +9,6 @@ const { includes } = require("lodash");
 async function index(req, res) {
   const products = await Product.findAll({ include: Category });
   res.json(products);
-  const products = await Product.findAll({});
-  res.json(products);
 }
 
 async function showByCategory(req, res) {
