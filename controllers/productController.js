@@ -1,12 +1,13 @@
-const { Product } = require("../models");
+const { Product, Category } = require("../models");
 const { Op } = require("sequelize");
+const { includes } = require("lodash");
 // const jwt = require("jsonwebtoken");
 // const checkJwt = require("express-jwt");
 // let apiKey = "";
 
 //show products
 async function index(req, res) {
-  const products = await Product.findAll({});
+  const products = await Product.findAll({ include: Category });
   res.json(products);
 }
 
