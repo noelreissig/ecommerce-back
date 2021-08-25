@@ -72,7 +72,6 @@ async function update(req, res) {
     res.statuscode = 200;
     res.send("Product updated");
     //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
-    res.redirect("/productos");
   } catch (err) {
     res.statuscode = 404;
     res.send("Error 404 - Please check data");

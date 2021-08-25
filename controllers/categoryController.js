@@ -53,6 +53,7 @@ async function update(req, res) {
   }
 }
 async function destroy(req, res) {
+  //validar que ningun producto use esa category antes de poder borrarlo
   try {
     const category = await Category.destroy({ where: { id: req.params.id } });
     res.statuscode = 200;

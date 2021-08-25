@@ -6,8 +6,8 @@ const productController = require("../controllers/productController");
 
 const checkJwt = require("express-jwt");
 const checkToken = checkJwt({
-	secret: process.env.TOKEN_KEY,
-	algorithms: ["HS256"],
+  secret: process.env.TOKEN_KEY,
+  algorithms: ["HS256"],
 });
 
 productRouter.get("/api/product", productController.index);
