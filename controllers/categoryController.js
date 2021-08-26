@@ -1,8 +1,7 @@
 const { Category } = require("../models");
-// const { Op } = require("sequelize");
-// const jwt = require("jsonwebtoken");
-// const checkJwt = require("express-jwt");
-// let apiKey = "";
+const formidable = require("formidable");
+const { createClient } = require("@supabase/supabase-js");
+const fs = require("fs");
 
 async function index(req, res) {
   const categories = await Category.findAll({});
@@ -20,30 +19,71 @@ async function show(req, res) {
     res.send("Category not found");
   }
 }
+
 async function store(req, res) {
-  const { name, photo_url } = req.body;
-  const [category, created] = await Category.findOrCreate({
-    where: {
-      name: name,
-    },
-    default: {
-      photo_url: photo_url,
-    },
+  const form = formidable({
+    multiples: false,
+    keepExtensions: true,
   });
-  if (created) {
-    res.statuscode = 200;
-    res.send("Category created");
-  } else {
-    res.statuscode = 404;
-    res.send("Error - Category not created. Please check data");
-  }
+  form.parse(req, async (err, fields, files) => {
+    const category = await Category.create(
+      {
+        name: fields.name,
+        photo_url: files.photo_url.name,
+      },
+      { new: true }
+    );
+    if (category) {
+      res.statuscode = 200;
+      res.send("Category created");
+    } else {
+      res.statuscode = 404;
+      res.send("Error - Category not created. Please check data");
+    }
+    const supabase = createClient(
+      "https://tyentfaqbpgmuskfbnwk.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
+    );
+    const { data, error } = await supabase.storage
+      .from("ecommerce")
+      .upload(
+        `categories/${files.photo_url.name}`,
+        fs.createReadStream(files.photo_url.path),
+        {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.photo_url.type,
+        }
+      );
+    res.json(category);
+  });
 }
+
+// async function store(req, res) {
+// const { name, photo_url } = req.body;
+// const [category, created] = await Category.create({
+//   where: {
+//     name: name,
+//   },
+//   default: {
+//     name: name,
+//     photo_url: photo_url,
+//   },
+// });
+// if (created) {
+//   res.statuscode = 200;
+//   res.send("Category created");
+// } else {
+//   res.statuscode = 404;
+//   res.send("Error - Category not created. Please check data");
+// }
+//}
+
 async function update(req, res) {
   try {
     const response = await Category.update(req.body, {
       where: { id: req.params.id },
     });
-    console.log("Estoy en back", req.body);
 
     res.statuscode = 200;
     res.send("Contenido actualizado");

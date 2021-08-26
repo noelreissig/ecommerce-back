@@ -65,7 +65,7 @@ module.exports = {
         console.log(addUser);
         addUser.token = jwt.sign(
           { sub: { username: fields.username, id: addUser._id } },
-          "unStringSuperJumbo",
+          "unStringSuperJumbo"
         );
         res.json(addUser);
       }
@@ -93,7 +93,7 @@ module.exports = {
       } else {
         user.token = jwt.sign(
           { sub: { username: req.body.username, id: user._id } },
-          "unStringSuperJumbo",
+          "unStringSuperJumbo"
         );
         res.json(user);
       }
@@ -128,7 +128,11 @@ module.exports = {
     const followId = await User.findOne({ username: followUser })
       .populate("followers")
       .populate("follows");
-    if (!user.follows.some((arrVal) => followId._id.toString() === arrVal._id.toString())) {
+    if (
+      !user.follows.some(
+        (arrVal) => followId._id.toString() === arrVal._id.toString()
+      )
+    ) {
       await User.findByIdAndUpdate(user._id, {
         $push: {
           follows: followId._id,
@@ -159,7 +163,10 @@ module.exports = {
     jwt.verify(token, "unStringSuperJumbo", function (err, decoded) {
       user = decoded.sub;
     });
-    const newTweet = await new Tweet({ author: user.id, content: req.body.content });
+    const newTweet = await new Tweet({
+      author: user.id,
+      content: req.body.content,
+    });
     await newTweet.save();
     const tweet = await Tweet.findById(newTweet.id).populate("author");
     res.json(tweet);
