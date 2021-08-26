@@ -50,10 +50,10 @@ async function tokenAdmin(req, res) {
 		if (!(email && password)) {
 			res.status(400).send("All input is required");
 		}
-		let user = await Admin.findOne({ where: { email: email } });
-		if (await user.validPassword(password)) {
+		let admin = await Admin.findOne({ where: { email: email } });
+		if (await admin.validPassword(password)) {
 			const token = jwt.sign(
-				{ id: user.id, email: user.email },
+				{ id: admin.id, email: admin.email },
 				process.env.TOKEN_KEY
 			);
 			await Admin.update(
@@ -62,7 +62,7 @@ async function tokenAdmin(req, res) {
 				},
 				{ where: { email: email } }
 			);
-			user.save();
+			admin.save();
 			const newAdmin = await Admin.findOne({
 				where: { email: email },
 				attributes: { exclude: ["password"] },

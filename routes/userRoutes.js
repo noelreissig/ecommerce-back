@@ -1,13 +1,12 @@
 const express = require("express");
 const userRouter = express.Router();
 
-const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
 
 const checkJwt = require("express-jwt");
 const checkToken = checkJwt({
-  secret: process.env.TOKEN_KEY,
-  algorithms: ["HS256"],
+	secret: process.env.TOKEN_KEY,
+	algorithms: ["HS256"],
 });
 
 // CRUD Client User

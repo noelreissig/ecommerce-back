@@ -2,10 +2,10 @@ const express = require("express");
 const apiRouter = express.Router();
 
 const checkJwt = require("express-jwt");
-const checkToken = checkJwt({
-  secret: process.env.TOKEN_KEY,
-  algorithms: ["HS256"],
-});
+// const checkToken = checkJwt({
+//   secret: process.env.TOKEN_KEY,
+//   algorithms: ["HS256"],
+// });
 
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
@@ -45,7 +45,7 @@ apiRouter.get("/api/order", orderController.index);
 apiRouter.get("/api/order/:id", orderController.show);
 apiRouter.post("/api/order", orderController.store);
 apiRouter.patch("/api/order/:id", orderController.update);
-apiRouter.delete("/api/order/:id", checkToken, orderController.destroy);
+apiRouter.delete("/api/order/:id", orderController.destroy);
 
 //Anto
 // apiRouter.get("/api/category", categoryController.index); // Funciona
