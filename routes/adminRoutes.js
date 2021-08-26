@@ -1,13 +1,12 @@
 const express = require("express");
 const adminRouter = express.Router();
 
-const authController = require("../controllers/authController");
 const adminController = require("../controllers/adminController");
 
 const checkJwt = require("express-jwt");
 const checkToken = checkJwt({
-  secret: process.env.TOKEN_KEY,
-  algorithms: ["HS256"],
+	secret: process.env.TOKEN_KEY,
+	algorithms: ["HS256"],
 });
 
 // CRUD Admin User

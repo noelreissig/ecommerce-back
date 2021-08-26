@@ -9,12 +9,11 @@ const productRoutes = require("./productRoutes");
 const authController = require("../controllers/authController");
 
 module.exports = (app) => {
-  // app.use("/admin", adminRoutes);
-  app.post("/api/tokenuser", authController.tokenUsers);
-  app.post("/api/tokenadmin", authController.tokenAdmin);
-  app.use(apiRoutes);
-  app.use(adminRoutes);
-  app.use(userRouter);
-  app.use(categoryRoutes);
-  app.use(productRoutes);
+	app.post("/api/tokenuser", authController.tokenUsers);
+	app.post("/api/tokenadmin", authController.tokenAdmin);
+	app.use(apiRoutes);
+	app.use(adminRoutes);
+	app.use(userRouter);
+	app.use(categoryRoutes);
+	app.use(productRoutes);
 };
