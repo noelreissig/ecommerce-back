@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Comedor",
-    "photo_url": "../img/categorias/1_comedor.webp",
+    "photo_url": "1_comedor.webp",
     "createdAt": "2021-08-17 08:09:00",
     "updatedAt": "2021-08-17 08:09:00"
 
@@ -10,28 +10,28 @@
   {
     "id": 2,
     "name": "Living",
-    "photo_url": "../img/categorias/2_living.webp",
+    "photo_url": "2_living.webp",
     "createdAt": "2021-08-20 10:34:28",
     "updatedAt": "2021-08-20 10:34:28"
   },
   {
     "id": 3,
     "name": "Dormitorio",
-    "photo_url": "../img/categorias/3_dormitorio.webp",
+    "photo_url": "3_dormitorio.webp",
     "createdAt": "2021-08-20 10:34:28",
     "updatedAt": "2021-08-20 10:34:28"
   },
   {
     "id": 4,
     "name": "Jardin",
-    "photo_url": "../img/categorias/4_jardin.webp",
+    "photo_url": "4_jardin.webp",
     "createdAt": "2021-08-20 10:34:28",
     "updatedAt": "2021-08-20 10:34:28"
   },
   {
     "id": 5,
     "name": "Complementos",
-    "photo_url": "../img/categorias/5_complementos.webp",
+    "photo_url": "5_complementos.webp",
     "createdAt": "2021-08-20 10:34:28",
     "updatedAt": "2021-08-20 10:34:28"
   }
