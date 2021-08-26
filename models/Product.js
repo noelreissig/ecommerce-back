@@ -15,26 +15,13 @@ module.exports = (sequelize, Model, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      characteristics: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      warranty: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      delivery: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
       picture_url: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       picture_2_url: {
         type: DataTypes.STRING,
-        // allowNull: false,
+        allowNull: false,
       },
 
       price: {
