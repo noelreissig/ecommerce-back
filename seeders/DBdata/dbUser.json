@@ -1,8 +1,8 @@
 [
 	{
 		"id": "05a962bd-c2df-416f-a778-5d3f9a780c3a",
-		"firstname": "comprador1",
-		"lastname": "comprador",
+		"firstname": "Nombre1",
+		"lastname": "Apellido",
 		"email": "comprador1@comp.com",
 		"address": "comp 123",
 		"phone": 1234,

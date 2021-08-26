@@ -1,13 +1,15 @@
-const { Order, Product, Order_Product } = require("../models");
+const { Order, Product, User } = require("../models");
 // const { Op } = require("sequelize");
 
 async function index(req, res) {
-	const orders = await Order.findAll({});
+	const orders = await Order.findAll({
+		include: [{ model: Product }, { model: User }],
+	});
 	res.json(orders);
 }
 async function show(req, res) {
 	const orders = await Order.findByPk(req.params.id, {
-		include: { model: Product },
+		include: [{ model: Product }, { model: User }],
 	});
 	if (orders) {
 		statuscode = 200;
