@@ -11,7 +11,10 @@ const checkToken = checkJwt({
 });
 
 productRouter.get("/api/product", productController.index);
-productRouter.get("/api/product/cat/:category", productController.showByCategory);
+productRouter.get(
+  "/api/product/category/:category",
+  productController.showByCategory
+);
 productRouter.get("/api/product/:slug", productController.show);
 productRouter.post("/api/product", checkToken, productController.store);
 productRouter.patch(
