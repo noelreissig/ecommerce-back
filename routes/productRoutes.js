@@ -16,10 +16,10 @@ productRouter.get(
 );
 productRouter.get("/api/product/:slug", productController.show);
 productRouter.post("/api/product", productController.store);
-productRouter.patch(
+productRouter.patch("/api/product/:id", productController.update);
+productRouter.delete(
   "/api/product/:id",
-  /*checkToken,*/ productController.update
+  /*checkToken, */ productController.destroy
 );
-productRouter.delete("/api/product/:id", checkToken, productController.destroy);
 
 module.exports = productRouter;

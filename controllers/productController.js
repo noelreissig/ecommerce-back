@@ -104,7 +104,7 @@ async function update(req, res) {
     keepExtensions: true,
   });
   form.parse(req, async (err, fields, files) => {
-    const product = await Product.create(
+    const product = await Product.update(
       {
         name: fields.name,
         description: fields.description,
@@ -117,9 +117,10 @@ async function update(req, res) {
         slug: slugify(fields.name),
         categoryId: fields.categoryId,
       },
-      { new: true }
+      { where: { id: req.params.id }, returning: true, plain: true }
     );
 
+    console.log(product);
     const supabase = createClient(
       "https://tyentfaqbpgmuskfbnwk.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
@@ -151,8 +152,7 @@ async function update(req, res) {
 
     if (product) {
       res.statuscode = 200;
-      // res.send("Product created");
-      res.json(product);
+      res.send("Product updated");
       //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
     } else {
       res.statuscode = 404;
