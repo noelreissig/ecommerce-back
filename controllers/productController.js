@@ -97,6 +97,7 @@ async function store(req, res) {
   });
 }
 
+//edicion de productos
 async function update(req, res) {
   const form = formidable({
     multiples: false,
@@ -113,7 +114,7 @@ async function update(req, res) {
         price: fields.price,
         stock: fields.stock,
         stared: fields.stared,
-        slug: fields.slug,
+        slug: slugify(fields.name),
         categoryId: fields.categoryId,
       },
       { new: true }

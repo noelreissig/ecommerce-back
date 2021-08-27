@@ -15,8 +15,11 @@ productRouter.get(
   productController.showByCategory
 );
 productRouter.get("/api/product/:slug", productController.show);
-productRouter.post("/api/product", /*checkToken,*/ productController.store);
-productRouter.patch("/api/product/:id", checkToken, productController.update);
+productRouter.post("/api/product", productController.store);
+productRouter.patch(
+  "/api/product/:id",
+  /*checkToken,*/ productController.update
+);
 productRouter.delete("/api/product/:id", checkToken, productController.destroy);
 
 module.exports = productRouter;
