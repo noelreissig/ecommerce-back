@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const { includes } = require("lodash");
 const formidable = require("formidable");
 const { createClient } = require("@supabase/supabase-js");
+const fs = require("fs");
 
 async function index(req, res) {
   const products = await Product.findAll({ include: Category });
@@ -37,79 +38,59 @@ async function store(req, res) {
     multiples: false,
     keepExtensions: true,
   });
+  form.parse(req, async (err, fields, files) => {
+    const product = await Product.create(
+      {
+        name: fields.name,
+        description: fields.description,
+        details: fields.details,
+        picture_url: files.picture_url.name,
+        picture_2_url: files.picture_2_url.name,
+        price: fields.price,
+        stock: fields.stock,
+        stared: fields.stared,
+        slug: fields.slug,
+        categoryId: fields.categoryId,
+      },
+      { new: true }
+    );
 
-  const [product, created] = await Product.create(
-    {
-      name: fields.name,
-      description: fields.description,
-      details: fields.details,
-      picture_url: file.picture_url.name,
-      picture_2_url: file.picture_2_url.name,
-      price: fields.price,
-      stock: fields.stock,
-      stared: fields.stared,
-      slug: fields.slug,
-    },
-    { new: true }
-  );
+    const supabase = createClient(
+      "https://tyentfaqbpgmuskfbnwk.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
+    );
 
-  if (created) {
-    res.statuscode = 200;
-    res.send("Product created");
-    //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
-    res.redirect("/productos");
-  } else {
-    res.statuscode = 404;
-    res.send("Error - Product not created. Please check data");
-  }
+    const { data, error } = await supabase.storage
+      .from("ecommerce")
+      .upload(
+        `images/${files.picture_url.name}`,
+        fs.createReadStream(files.picture_url.path),
+        {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.picture_url.type,
+        }
+      )
+      .upload(
+        `images/${files.picture_2_url.name}`,
+        fs.createReadStream(files.picture_2_url.path),
+        {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.picture_2_url.type,
+        }
+      );
 
-  const supabase = createClient(
-    "https://tyentfaqbpgmuskfbnwk.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
-  );
-
-  const { data, error } = await supabase.storage
-    .from("ecommerce")
-    .upload(`images/${files.picture_url.name}`, files.picture_url, {
-      cacheControl: "3600",
-      upsert: false,
-    });
-  console.log(data);
-  console.log(error);
-  res.json(product);
-
-  // const {
-  //   name,
-  //   description,
-  //   details,
-  //   characteristics,
-  //   warranty,
-  //   delivery,
-  //   picture_url,
-  //   picture_2_url,
-  //   price,
-  //   stock,
-  //   stared,
-  //   slug,
-  //   categoryId,
-  // } = req.body;
-
-  // const [product, created] = await Product.findOrCreate({
-  //   where: {
-  //     name: name,
-  //   },
-  //   defaults: req.body,
-  // });
-
-  // if (created) {
-  //   res.statuscode = 200;
-  //   res.send("Product created");
-  //   //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
-  //   res.redirect("/productos");
-  // } else {
-  //   res.statuscode = 404;
-  //   res.send("Error - Product not created. Please check data");
-  // }
+    if (product) {
+      res.statuscode = 200;
+      // res.send("Product created");
+      res.json(product);
+      //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
+    } else {
+      res.statuscode = 404;
+      res.send("Error - Product not created. Please check data");
+    }
+  });
 }
 
 async function update(req, res) {
@@ -124,7 +105,6 @@ async function update(req, res) {
   }
 }
 
-//de donde obtenemos el params.id para borrar, desde el front?.
 async function destroy(req, res) {
   try {
     const product = await Product.destroy({ where: { id: req.params.id } });
