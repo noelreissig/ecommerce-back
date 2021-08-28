@@ -5,6 +5,7 @@ const slugify = require("slugify");
 const formidable = require("formidable");
 const { createClient } = require("@supabase/supabase-js");
 const fs = require("fs");
+const e = require("express");
 
 async function index(req, res) {
   const products = await Product.findAll({ include: Category });
@@ -104,8 +105,8 @@ async function update(req, res) {
     keepExtensions: true,
   });
   form.parse(req, async (err, fields, files) => {
-    const product = await Product.update(
-      {
+    /*const productUpdate = {};
+        {
         name: fields.name,
         description: fields.description,
         details: fields.details,
@@ -117,39 +118,67 @@ async function update(req, res) {
         slug: slugify(fields.name),
         categoryId: fields.categoryId,
       },
-      { where: { id: req.params.id }, returning: true, plain: true }
-    );
+    */
+    let hasPicture = false;
+    if (
+      files.hasOwnProperty("picture_url") &&
+      files.picture_url.hasOwnProperty("name") &&
+      files.picture_url.name != ""
+    ) {
+      fields["picture_url"] = files.picture_url.name;
+      hasPicture = true;
+    } else {
+      delete fields["picture_url"];
+    }
+    if (
+      files.hasOwnProperty("picture_2_url") &&
+      files.picture_2_url.hasOwnProperty("name") &&
+      files.picture_2_url.name != ""
+    ) {
+      fields["picture_2_url"] = files.picture_2_url.name;
+      hasPicture = true;
+    } else {
+      delete fields["picture_2_url"];
+    }
+    const product = await Product.update(fields, {
+      where: { id: req.params.id },
+      returning: true,
+      plain: true,
+    });
 
-    console.log(product);
-    const supabase = createClient(
-      "https://tyentfaqbpgmuskfbnwk.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
-    );
-
-    await supabase.storage
-      .from("ecommerce")
-      .upload(
-        `images/${files.picture_url.name}`,
-        fs.createReadStream(files.picture_url.path),
-        {
-          cacheControl: "3600",
-          upsert: false,
-          contentType: files.picture_url.type,
-        }
+    if (hasPicture) {
+      const supabase = createClient(
+        "https://tyentfaqbpgmuskfbnwk.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
       );
 
-    await supabase.storage
-      .from("ecommerce")
-      .upload(
-        `images/${files.picture_2_url.name}`,
-        fs.createReadStream(files.picture_2_url.path),
-        {
-          cacheControl: "3600",
-          upsert: false,
-          contentType: files.picture_2_url.type,
-        }
-      );
-
+      if (fields.hasOwnProperty("picture_url")) {
+        await supabase.storage
+          .from("ecommerce")
+          .upload(
+            `images/${files.picture_url.name}`,
+            fs.createReadStream(files.picture_url.path),
+            {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: files.picture_url.type,
+            }
+          );
+      }
+      if (fields.hasOwnProperty("picture_2_url")) {
+        await supabase.storage
+          .from("ecommerce")
+          .upload(
+            `images/${files.picture_2_url.name}`,
+            fs.createReadStream(files.picture_2_url.path),
+            {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: files.picture_2_url.type,
+            }
+          );
+      }
+    }
     if (product) {
       res.statuscode = 200;
       res.send("Product updated");
@@ -160,18 +189,6 @@ async function update(req, res) {
     }
   });
 }
-
-// async function update(req, res) {
-//   try {
-//     await Product.update(req.body, { where: { id: req.params.id } });
-//     res.statuscode = 200;
-//     res.send("Product updated");
-//     //que muestre algun cartel tipo toastify con que se agregó/modificó un producto
-//   } catch (err) {
-//     res.statuscode = 404;
-//     res.send("Error 404 - Please check data");
-//   }
-// }
 
 async function destroy(req, res) {
   try {
