@@ -105,20 +105,7 @@ async function update(req, res) {
     keepExtensions: true,
   });
   form.parse(req, async (err, fields, files) => {
-    /*const productUpdate = {};
-        {
-        name: fields.name,
-        description: fields.description,
-        details: fields.details,
-        picture_url: files.picture_url.name,
-        picture_2_url: files.picture_2_url.name,
-        price: fields.price,
-        stock: fields.stock,
-        stared: fields.stared,
-        slug: slugify(fields.name),
-        categoryId: fields.categoryId,
-      },
-    */
+
     let hasPicture = false;
     if (
       files.hasOwnProperty("picture_url") &&
