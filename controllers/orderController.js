@@ -5,18 +5,16 @@ async function index(req, res) {
 	const orders = await Order.findAll({
 		include: [{ model: Product }, { model: User }],
 	});
-	res.json(orders);
+	res.status(200).json(orders);
 }
 async function show(req, res) {
 	const orders = await Order.findByPk(req.params.id, {
 		include: [{ model: Product }, { model: User }],
 	});
 	if (orders) {
-		statuscode = 200;
-		res.json(orders);
+		res.status(200).json(orders);
 	} else {
-		statuscode = 404;
-		res.send("Orden no encontrada");
+		res.status(404).json({ Message: "Orden not found" });
 	}
 }
 async function store(req, res) {
@@ -32,11 +30,9 @@ async function store(req, res) {
 				through: { quantity: item.quantity, unitPrice: item.prod.price },
 			});
 		});
-		statuscode = 200;
-		res.send("Orden Creada");
+		res.status(200).json({ Message: "Order Created" });
 	} catch {
-		res.statuscode = 404;
-		res.send("Error 404 - No se pudo completar");
+		res.status(404).json({ Message: "Error - Order not Created" });
 	}
 }
 
@@ -53,12 +49,10 @@ async function update(req, res) {
 }
 async function destroy(req, res) {
 	try {
-		const order = await Order.destroy({ where: { id: req.params.id } });
-		res.statuscode = 200;
-		res.send("Orden eliminada");
+		await Order.destroy({ where: { id: req.params.id } });
+		res.status(200).json({ Message: "Order deleted" });
 	} catch {
-		res.statuscode = 404;
-		res.send("Error 404 - No se pudo completar");
+		res.status(404).json({ Message: "Error - Order not deleted" });
 	}
 }
 

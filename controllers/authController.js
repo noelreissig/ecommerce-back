@@ -1,16 +1,3 @@
-// Ruta login POST
-// const passport = require("passport");
-
-// module.exports = {
-// 	login: passport.authenticate("local", {
-// 		successRedirect: "/",
-// 		failureRedirect: "/login",
-// 	}),
-// 	// Ruta inicio de sesion POST
-
-// };
-// Ruta login POST
-
 const { User, Admin } = require("../models");
 const jwt = require("jsonwebtoken");
 
@@ -18,7 +5,7 @@ async function tokenUsers(req, res) {
 	try {
 		const { email, password } = req.body;
 		if (!(email && password)) {
-			res.status(400).send("All input is required");
+			res.status(400).json({ Message: "All input is required" });
 		}
 		let user = await User.findOne({ where: { email: email } });
 		if (await user.validPassword(password)) {
@@ -39,7 +26,7 @@ async function tokenUsers(req, res) {
 			});
 			res.status(200).json(newUser);
 		}
-		res.status(400).send("Invalid Credentials");
+		res.status(400).json({ Message: "Invalid Credentials" });
 	} catch (err) {
 		console.log(err);
 	}
@@ -48,7 +35,7 @@ async function tokenAdmin(req, res) {
 	try {
 		const { email, password } = req.body;
 		if (!(email && password)) {
-			res.status(400).send("All input is required");
+			res.status(400).json({ Message: "All input is required" });
 		}
 		let admin = await Admin.findOne({ where: { email: email } });
 		if (await admin.validPassword(password)) {
@@ -69,7 +56,7 @@ async function tokenAdmin(req, res) {
 			});
 			res.status(200).json(newAdmin);
 		}
-		res.status(400).send("Invalid Credentials");
+		res.status(400).json({ Message: "Invalid Credentials" });
 	} catch (err) {
 		console.log(err);
 	}
