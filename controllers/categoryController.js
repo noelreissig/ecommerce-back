@@ -1,4 +1,6 @@
 const { Category } = require("../models");
+const { Product } = require("../models");
+
 const formidable = require("formidable");
 const { createClient } = require("@supabase/supabase-js");
 const fs = require("fs");
@@ -59,26 +61,6 @@ async function store(req, res) {
   });
 }
 
-// async function store(req, res) {
-// const { name, photo_url } = req.body;
-// const [category, created] = await Category.create({
-//   where: {
-//     name: name,
-//   },
-//   default: {
-//     name: name,
-//     photo_url: photo_url,
-//   },
-// });
-// if (created) {
-//   res.statuscode = 200;
-//   res.send("Category created");
-// } else {
-//   res.statuscode = 404;
-//   res.send("Error - Category not created. Please check data");
-// }
-//}
-
 async function update(req, res) {
   const form = formidable({
     multiples: false,
@@ -131,27 +113,24 @@ async function update(req, res) {
   });
 }
 
-// try {
-//   const response = await Category.update(req.body, {
-//     where: { id: req.params.id },
-//   });
-
-//   res.statuscode = 200;
-//   res.send("Contenido actualizado");
-// } catch (err) {
-//   res.statuscode = 404;
-//   res.send("Error 404 - El titulo y/o el contenido no pueden quedar vacios");
-// }
-
 async function destroy(req, res) {
-  //validar que ningun producto use esa category antes de poder borrarlo
-  try {
-    const category = await Category.destroy({ where: { id: req.params.id } });
-    res.statuscode = 200;
-    res.send("Categoría eliminada");
-  } catch {
-    res.statuscode = 404;
-    res.send("Error 404 - No se pudo eliminar");
+  const products = await Product.findAll({
+    where: { categoryId: req.params.id },
+  });
+  // console.log(products.length);
+  //valida que ningún producto use esa category antes de poder borrarlo
+  if (products.length > 0) {
+    res.status(403).json({
+      Mensaje: "No se pueden eliminar categorías con productos asociados",
+    });
+  } else {
+    try {
+      const category = await Category.destroy({ where: { id: req.params.id } });
+      res.status(200).json({ Mensaje: "Categoría eliminada" });
+    } catch (error) {
+      console.log(error);
+      res.send(404).json({ Mensaje: "Error 404 - No se pudo eliminar" });
+    }
   }
 }
 
