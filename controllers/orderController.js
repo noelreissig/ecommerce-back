@@ -10,7 +10,6 @@ async function index(req, res) {
 async function show(req, res) {
 	const orders = await Order.findOne({
 		where: { userId: req.params.id },
-
 		include: [{ model: Product }, { model: User }],
 	});
 	if (orders) {
@@ -21,12 +20,29 @@ async function show(req, res) {
 }
 async function store(req, res) {
 	try {
-		const { products, deliveryAddress, deliveryDate, userId } = req.body;
+		const {
+			products,
+			deliveryAddress,
+			deliveryCity,
+			deliveryDepartment,
+			deliveryPostalCod,
+			deliveryDate,
+			userId,
+			status,
+			paymentMethod,
+		} = req.body;
 		const order = await Order.create({
 			deliveryAddress: deliveryAddress,
 			deliveryDate: deliveryDate,
 			userId: userId,
+			deliveryCity: deliveryCity,
+			deliveryDepartment: deliveryDepartment,
+			deliveryPostalCod: deliveryPostalCod,
+			deliveryDate: deliveryDate,
+			status: status,
+			paymentMethod: paymentMethod,
 		});
+
 		products.map(async (item) => {
 			await order.addProduct(item.prod.id, {
 				through: { quantity: item.quantity, unitPrice: item.prod.price },
@@ -34,7 +50,7 @@ async function store(req, res) {
 		});
 		res.status(200).json({ Message: "Order Created" });
 	} catch {
-		res.status(404).json({ Message: "Error - Order not Created" });
+		res.status(400).json({ Message: "Error - Order not Created" });
 	}
 }
 

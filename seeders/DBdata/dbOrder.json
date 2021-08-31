@@ -2,10 +2,40 @@
 	{
 		"id": 1,
 		"deliveryAddress": "comp 123",
+		"deliveryCity": "Montevideo",
+		"deliveryDepartment": "Montevideo",
+		"deliveryPostalCod": "11600",
 		"deliveryDate": "2021-08-20 10:47:31",
 		"status": "Pago Pendiente",
+		"paymentMethod": "Mercado Pago",
 		"createdAt": "2021-08-20 10:47:31",
 		"updatedAt": "2021-08-20 10:47:31",
+		"userId": "05a962bd-c2df-416f-a778-5d3f9a780c3a"
+	},
+	{
+		"id": 2,
+		"deliveryAddress": "comp 123",
+		"deliveryCity": "Montevideo",
+		"deliveryDepartment": "Montevideo",
+		"deliveryPostalCod": "11600",
+		"deliveryDate": "2021-08-20 10:47:31",
+		"status": "Preparando",
+		"paymentMethod": "Paypal",
+		"createdAt": "2021-08-24 10:47:31",
+		"updatedAt": "2021-08-24 10:47:31",
+		"userId": "05a962bd-c2df-416f-a778-5d3f9a780c3a"
+	},
+	{
+		"id": 3,
+		"deliveryAddress": "comp 123",
+		"deliveryCity": "Montevideo",
+		"deliveryDepartment": "Montevideo",
+		"deliveryPostalCod": "11600",
+		"deliveryDate": "2021-08-20 10:47:31",
+		"status": "Entregado",
+		"paymentMethod": "Paypal",
+		"createdAt": "2021-08-24 10:47:31",
+		"updatedAt": "2021-08-24 10:47:31",
 		"userId": "05a962bd-c2df-416f-a778-5d3f9a780c3a"
 	}
 ]
