@@ -80,18 +80,69 @@ async function store(req, res) {
 //}
 
 async function update(req, res) {
-  try {
-    const response = await Category.update(req.body, {
+  const form = formidable({
+    multiples: false,
+    keepExtensions: true,
+  });
+  form.parse(req, async (err, fields, files) => {
+    let hasPicture = false;
+    if (
+      files.hasOwnProperty("photo_url") &&
+      files.photo_url.hasOwnProperty("name") &&
+      files.photo_url.name != ""
+    ) {
+      fields["photo_url"] = files.photo_url.name;
+      hasPicture = true;
+    } else {
+      delete fields["photo_url"];
+    }
+    const category = await Category.update(fields, {
       where: { id: req.params.id },
+      returning: true,
+      plain: true,
     });
+    if (hasPicture) {
+      const supabase = createClient(
+        "https://tyentfaqbpgmuskfbnwk.supabase.co",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjI5NzI1NzAwLCJleHAiOjE5NDUzMDE3MDB9.TrC1BuWa09EQc9ENGnwn6S3C12_3_wUfXFp9KkjWUeA"
+      );
 
-    res.statuscode = 200;
-    res.send("Contenido actualizado");
-  } catch (err) {
-    res.statuscode = 404;
-    res.send("Error 404 - El titulo y/o el contenido no pueden quedar vacios");
-  }
+      if (fields.hasOwnProperty("photo_url")) {
+        await supabase.storage
+          .from("ecommerce")
+          .upload(
+            `categories/${files.photo_url.name}`,
+            fs.createReadStream(files.photo_url.path),
+            {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: files.photo_url.type,
+            }
+          );
+      }
+    }
+    if (category) {
+      res.statuscode = 200;
+      res.send("Category updated");
+    } else {
+      res.statuscode = 404;
+      res.send("Error - Category not updated. Please check data");
+    }
+  });
 }
+
+// try {
+//   const response = await Category.update(req.body, {
+//     where: { id: req.params.id },
+//   });
+
+//   res.statuscode = 200;
+//   res.send("Contenido actualizado");
+// } catch (err) {
+//   res.statuscode = 404;
+//   res.send("Error 404 - El titulo y/o el contenido no pueden quedar vacios");
+// }
+
 async function destroy(req, res) {
   //validar que ningun producto use esa category antes de poder borrarlo
   try {
