@@ -8,7 +8,9 @@ async function index(req, res) {
 	res.status(200).json(orders);
 }
 async function show(req, res) {
-	const orders = await Order.findByPk(req.params.id, {
+	const orders = await Order.findOne({
+		where: { userId: req.params.id },
+
 		include: [{ model: Product }, { model: User }],
 	});
 	if (orders) {
