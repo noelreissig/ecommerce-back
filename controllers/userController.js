@@ -14,7 +14,9 @@ async function show(req, res) {
 	}
 }
 async function store(req, res) {
-	const { firstname, lastname, address, phone, email, password } = req.body;
+	const { firstname, lastname, address,  city,
+		department,
+		postalcode, phone, email, password } = req.body;
 	const [user, created] = await User.findOrCreate({
 		where: {
 			email: email,
@@ -23,6 +25,9 @@ async function store(req, res) {
 			firstname: firstname,
 			lastname: lastname,
 			address: address,
+			city: city,
+			department: department,
+			postalcod: postalcode,
 			phone: phone,
 			password: password,
 		},
