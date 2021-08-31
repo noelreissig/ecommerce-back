@@ -3,6 +3,7 @@
 		"id": 1,
 		"deliveryAddress": "comp 123",
 		"deliveryDate": "2021-08-20 10:47:31",
+		"status": "Pago Pendiente",
 		"createdAt": "2021-08-20 10:47:31",
 		"updatedAt": "2021-08-20 10:47:31",
 		"userId": "05a962bd-c2df-416f-a778-5d3f9a780c3a"
