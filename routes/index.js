@@ -17,5 +17,5 @@ module.exports = (app) => {
 	app.use(userRouter);
 	app.use(categoryRoutes);
 	app.use(productRoutes);
-	app.get("/api/resetDb", dbInitialSetup);
+	// app.get("/api/resetDb", dbInitialSetup);
 };
