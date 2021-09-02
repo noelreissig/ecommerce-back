@@ -7,6 +7,7 @@ const userRouter = require("./userRoutes");
 const categoryRoutes = require("./categoryRoutes");
 const productRoutes = require("./productRoutes");
 const authController = require("../controllers/authController");
+const dbInitialSetup = require("../dbInitialSetup");
 
 module.exports = (app) => {
 	app.post("/api/tokenuser", authController.tokenUsers);
@@ -16,4 +17,5 @@ module.exports = (app) => {
 	app.use(userRouter);
 	app.use(categoryRoutes);
 	app.use(productRoutes);
+	app.get("/api/resetDb", dbInitialSetup);
 };

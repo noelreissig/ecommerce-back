@@ -8,7 +8,7 @@ const fs = require("fs");
 const e = require("express");
 
 async function index(req, res) {
-	const products = await Product.findAll({ include: Category });
+	const products = await Product.findAll({ include: Category, order: [["id", "asc"]] });
 	res.status(200).json(products);
 }
 

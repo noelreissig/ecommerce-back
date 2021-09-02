@@ -13,7 +13,7 @@ const checkToken = checkJwt({
 adminRouter.get("/api/admin", checkToken, adminController.index);
 adminRouter.get("/api/admin/:id", checkToken, adminController.show);
 adminRouter.post("/api/admin", checkToken, adminController.store);
-adminRouter.patch("/api/admin", checkToken, adminController.update);
+adminRouter.patch("/api/admin/:id", checkToken, adminController.update);
 adminRouter.delete("/api/admin/:id", checkToken, adminController.destroy);
 
 module.exports = adminRouter;

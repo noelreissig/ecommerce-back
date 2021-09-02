@@ -2,7 +2,7 @@ const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 
 async function index(req, res) {
-	const users = await User.findAll({});
+	const users = await User.findAll({ order: [["createdAt", "asc"]] });
 	res.json(users);
 }
 async function show(req, res) {

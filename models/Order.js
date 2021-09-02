@@ -2,6 +2,11 @@ module.exports = (sequelize, Model, DataTypes) => {
 	class Order extends Model {}
 	Order.init(
 		{
+			id: {
+				type: DataTypes.UUID,
+				defaultValue: DataTypes.UUIDV4,
+				primaryKey: true,
+			},
 			deliveryAddress: {
 				type: DataTypes.STRING,
 				allowNull: false,

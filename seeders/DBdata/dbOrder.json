@@ -1,6 +1,7 @@
 [
 	{
-		"id": 1,
+		"id": "0b6d76b1-bfd7-4c4a-814e-32c987332c2a",
+
 		"deliveryAddress": "comp 123",
 		"deliveryCity": "Montevideo",
 		"deliveryDepartment": "Montevideo",
@@ -13,7 +14,6 @@
 		"userId": "05a962bd-c2df-416f-a778-5d3f9a780c3a"
 	},
 	{
-		"id": 2,
 		"deliveryAddress": "comp 123",
 		"deliveryCity": "Montevideo",
 		"deliveryDepartment": "Montevideo",
@@ -26,7 +26,6 @@
 		"userId": "05a962bd-c2df-416f-a778-5d3f9a780c3a"
 	},
 	{
-		"id": 3,
 		"deliveryAddress": "comp 123",
 		"deliveryCity": "Montevideo",
 		"deliveryDepartment": "Montevideo",

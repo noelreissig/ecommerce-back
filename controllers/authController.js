@@ -19,7 +19,7 @@ async function tokenUsers(req, res) {
 				},
 				{ where: { email: email } }
 			);
-			user.save();
+
 			const newUser = await User.findOne({
 				where: { email: email },
 				attributes: { exclude: ["password"] },
@@ -49,7 +49,7 @@ async function tokenAdmin(req, res) {
 				},
 				{ where: { email: email } }
 			);
-			admin.save();
+
 			const newAdmin = await Admin.findOne({
 				where: { email: email },
 				attributes: { exclude: ["password"] },

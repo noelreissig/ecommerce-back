@@ -6,7 +6,7 @@ const { createClient } = require("@supabase/supabase-js");
 const fs = require("fs");
 
 async function index(req, res) {
-	const categories = await Category.findAll({});
+	const categories = await Category.findAll({ order: [["id", "asc"]] });
 	res.json(categories);
 }
 async function show(req, res) {
@@ -31,8 +31,9 @@ async function store(req, res) {
 				name: fields.name,
 				photo_url: files.photo_url.name,
 			},
-			{ new: true }
+			{ isNewRecord: true }
 		);
+
 		if (category) {
 			res.status(200).json({ Message: "Category created" });
 		} else {
